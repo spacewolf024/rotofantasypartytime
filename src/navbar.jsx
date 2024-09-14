@@ -18,15 +18,15 @@ import classes from './styles/navbar.module.css';
 import useAppContext from './useAppContext';
 
 const data = [
-  { link: '', label: 'Premier Cup', icon: IconCrown },
-  { link: '', label: 'Championship', icon: IconFileAnalytics },
-  { link: '', label: 'League 1', icon: IconFileAnalytics },
-  { link: '', label: 'All', icon: IconFileAnalytics },
+  { id: 0, label: 'Premier Cup', icon: IconCrown },
+  { id: 1, label: 'Championship', icon: IconFileAnalytics },
+  { id: 2, label: 'League 1', icon: IconFileAnalytics },
+  { id: 3, label: 'All', icon: IconFileAnalytics },
 ];
 
 const NavBar = () => {
   const {
-    state: { isMobile }, 
+    state: { isMobile, league }, 
     dispatch
   } = useAppContext();
   const [active, setActive] = useState('Premier');
@@ -47,6 +47,7 @@ const NavBar = () => {
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
+        dispatch({type: 'set_league', payload: item.id});
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />

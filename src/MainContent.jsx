@@ -7,16 +7,19 @@ import { getLeagueData } from './sleeperService';
 
 const MainContent = () => {
     const [data, setData] = useState(null);
-    const {state, dispatch} = useAppContext();
+    const {
+      state: { leagueIndex }
+    } = useAppContext();
 
       useEffect(() => {
         const fetchLeagueData = async () => {
-          const league1 = Constants.tierIds.tier2;
-          const res = await getLeagueData(league1);
+          const league = Constants.tierIds[leagueIndex];
+          console.log()
+          const res = await getLeagueData(league);
           setData(res);
         };
         fetchLeagueData();
-      }, []);
+      }, [leagueIndex]);
 
       return (
           <Container size="responsive">
