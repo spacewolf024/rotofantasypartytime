@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Loader } from '@mantine/core';
+import { Container, Loader } from '@mantine/core';
 import Constants from './Constants'; 
 
 const MainContent = () => {
@@ -23,7 +23,7 @@ const MainContent = () => {
     }, []);
 
     return (
-        <>
+        <Container>
             {
               data ? (
                   <pre>{JSON.stringify(data, null, 2)}</pre>
@@ -31,7 +31,7 @@ const MainContent = () => {
                 <Loader color="white" />
               )
             }
-        </>
+        </Container>
     )
 };
 
