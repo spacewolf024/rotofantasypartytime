@@ -29,7 +29,7 @@ const NavBar = () => {
     state: { isMobile, leagueIndex }, 
     dispatch
   } = useAppContext();
-  const [active, setActive] = useState('Premier');
+  const [active, setActive] = useState('Premier Cup');
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   const handleOnClick = () => {
