@@ -4,5 +4,7 @@
   list-style: none;
 };
 
-
+body {
+  display: block !important;
+}
 

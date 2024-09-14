@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Avatar, Container, Loader } from '@mantine/core';
+import useAppContext from './useAppContext';
 import Constants from './Constants';
 import { getLeagueData } from './sleeperService';
 import { Table } from '@mantine/core';
@@ -12,7 +13,7 @@ const MainContent = (props) => {
 
   useEffect(() => {
     const fetchLeagueData = async () => {
-      const league1 = Constants.tierIds.tier2;
+      const league1 = Constants.tierIds[0];
       const res = await getLeagueData(league1);
       setData(res);
     };

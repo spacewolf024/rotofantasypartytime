@@ -15,17 +15,20 @@ import {
   IconCrown
 } from '@tabler/icons-react';
 import classes from './styles/navbar.module.css';
+import useAppContext from './useAppContext';
 
 const data = [
   { link: '', label: 'Premier Cup', icon: IconCrown },
   { link: '', label: 'Championship', icon: IconFileAnalytics },
   { link: '', label: 'League 1', icon: IconFileAnalytics },
   { link: '', label: 'All', icon: IconFileAnalytics },
-
 ];
 
-const NavBar = (props) => {
-  const { isMobile } = props;
+const NavBar = () => {
+  const {
+    state: { isMobile }, 
+    dispatch
+  } = useAppContext();
   const [active, setActive] = useState('Premier');
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
@@ -90,7 +93,8 @@ const NavBar = (props) => {
 
     </nav>;
 
-  const mobileMenu = <Menu shadow="md" width={200}>
+  const mobileMenu = 
+  <Menu shadow="md" width={320}>
     <Menu.Target>
       <Button>Menu</Button>
     </Menu.Target>
@@ -107,13 +111,35 @@ const NavBar = (props) => {
             </Menu.Item>
           ))
         }
+        <Menu.Item
+          className={classes.header}
+          justify="space-between"
+        >
+          <ActionIcon
+            color="white"
+            radius="sm"
+            justify="center"
+            onClick={
+              () => handleOnClick()
+            }
+          >
+            <ThemeIcon
+              variant="default"
+              radius="sm"
+              size="md"
+            >
+              <IconPhoto style={{ width: '100%', height: '100%' }} />
+            </ThemeIcon>
+          </ActionIcon >
+          <Code fw={700}>v0.0.1</Code>
+        </Menu.Item>
     </Menu.Dropdown>
   </Menu>
   ;
 
   return (
     <>
-      {isMobile ? desktopMenu : mobileMenu}
+      {isMobile ? mobileMenu : desktopMenu}
     </>
   );
 }
