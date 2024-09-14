@@ -26,8 +26,9 @@ const MainContent = () => {
     return <Loader color="blue" />;
   }
 
-  const rows = data.map((element) => (
+  const rows = data.map((element, index) => (
     <Table.Tr key={element.user_id}> {/* Use a unique key, like element.id */}
+      <Table.Td>{index + 1}</Table.Td>
       <Table.Td>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Avatar src={element.pfp} />
@@ -43,8 +44,9 @@ const MainContent = () => {
     </Table.Tr>
   ));
 
-  const mobileRows = data.map((element) => (
+  const mobileRows = data.map((element, index) => (
     <Table.Tr key={element.user_id}> {/* Use a unique key, like element.id */}
+      <Table.Td>{index + 1}</Table.Td>
       <Table.Td><strong>{element.metadata.team_name || `Team ${element.display_name || 'Unknown'}`}</strong><br />{element.display_name}<br />{element.record.wins}-{element.record.ties}-{element.record.losses}</Table.Td>
       <Table.Td>{element.record.fpts}.{element.record.fpts_decimal}</Table.Td>
       <Table.Td>{element.record.fpts_against}.{element.record.fpts_against_decimal}</Table.Td>
@@ -59,6 +61,7 @@ const MainContent = () => {
         <Table className="table-left-align">
           <Table.Thead>
             <Table.Tr>
+              <Table.Th>Rank</Table.Th>
               <Table.Th>Team</Table.Th>
               <Table.Th>PF</Table.Th>
               <Table.Th>PA</Table.Th>
@@ -72,6 +75,7 @@ const MainContent = () => {
         <Table className="table-left-align">
           <Table.Thead>
             <Table.Tr>
+              <Table.Th>Rank</Table.Th>
               <Table.Th>Team</Table.Th>
               <Table.Th>Manager</Table.Th>
               <Table.Th>Record</Table.Th>
