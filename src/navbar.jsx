@@ -35,7 +35,7 @@ const NavBar = () => {
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="space-between">
-          <Code fw={700}>v3.1.2</Code>
+          <Code fw={700}>v0.0.1</Code>
         </Group>
         {links}
       </div>

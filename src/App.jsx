@@ -1,17 +1,19 @@
-import { MantineProvider } from '@mantine/core';
-import NavBar from './navbar';
-import './App.css';
+import { useState } from 'react';
+import { MantineProvider, Container } from '@mantine/core';
+import MainContent from './MainContent';
+import NavBar from './NavBar';
+import  './App.css';
 import '@mantine/core/styles.css';
 
 
-function App() {
+const App = () => {
+  const [colorScheme, setColorScheme] = useState('dark');
 
   return (
     <>
-      <MantineProvider >
-        <div className={"page-container"}>
+      <MantineProvider theme={{ colorScheme }} >
           <NavBar />
-        </div>
+          <MainContent />
       </MantineProvider>
     </>
   )
