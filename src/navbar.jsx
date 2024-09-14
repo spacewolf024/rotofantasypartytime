@@ -15,17 +15,20 @@ import {
   IconCrown
 } from '@tabler/icons-react';
 import classes from './styles/navbar.module.css';
+import useAppContext from './useAppContext';
 
 const data = [
   { link: '', label: 'Premier Cup', icon: IconCrown },
   { link: '', label: 'Championship', icon: IconFileAnalytics },
   { link: '', label: 'League 1', icon: IconFileAnalytics },
   { link: '', label: 'All', icon: IconFileAnalytics },
-
 ];
 
-const NavBar = (props) => {
-  const { isMobile } = props;
+const NavBar = () => {
+  const {
+    state: { isMobile }, 
+    dispatch
+  } = useAppContext();
   const [active, setActive] = useState('Premier');
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
@@ -136,7 +139,7 @@ const NavBar = (props) => {
 
   return (
     <>
-      {isMobile ? desktopMenu : mobileMenu}
+      {isMobile ? mobileMenu : desktopMenu}
     </>
   );
 }
