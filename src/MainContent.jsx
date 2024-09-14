@@ -10,7 +10,7 @@ import './TableStyle.css';
 const MainContent = () => {
     const [data, setData] = useState(null);
     const {
-      state: { leagueIndex }
+      state: { leagueIndex, isMobile }
     } = useAppContext();
 
       useEffect(() => {
@@ -27,7 +27,6 @@ const MainContent = () => {
     return <Loader color="blue" />;
   }
 
-  console.log(data)
   const rows = data.map((element) => (
     <Table.Tr key={element.user_id}> {/* Use a unique key, like element.id */}
       <Table.Td>
@@ -57,7 +56,7 @@ const MainContent = () => {
 
   return (
     <Container>
-      {!isMobile ? (
+      {isMobile ? (
         <Table className="table-left-align">
           <Table.Thead>
             <Table.Tr>
