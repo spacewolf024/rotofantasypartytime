@@ -7,18 +7,21 @@ import { getLeagueData } from './sleeperService';
 import { Table } from '@mantine/core';
 import './TableStyle.css';
 
-const MainContent = (props) => {
-  const { isMobile } = props;
-  const [data, setData] = useState(null);
+const MainContent = () => {
+    const [data, setData] = useState(null);
+    const {
+      state: { leagueIndex }
+    } = useAppContext();
 
-  useEffect(() => {
-    const fetchLeagueData = async () => {
-      const league1 = Constants.tierIds[0];
-      const res = await getLeagueData(league1);
-      setData(res);
-    };
-    fetchLeagueData();
-  }, []);
+      useEffect(() => {
+        const fetchLeagueData = async () => {
+          const league = Constants.tierIds[leagueIndex];
+          console.log()
+          const res = await getLeagueData(league);
+          setData(res);
+        };
+        fetchLeagueData();
+      }, [leagueIndex]);
 
   if (!data) {
     return <Loader color="blue" />;

@@ -7,7 +7,7 @@ const AppProvider = ({children}) => {
 
     const initialState = {
         isMobile: false,
-        league: 0
+        leagueIndex: 0
     };
     
     const [state, dispatch] = useReducer(appReducer, initialState);
