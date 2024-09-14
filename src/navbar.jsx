@@ -1,25 +1,32 @@
 import { useState } from 'react';
-import {
-  Group, 
-  Code, 
-  useMantineColorScheme
- } from '@mantine/core';
-import { ActionIcon } from '@mantine/core';
-import { ThemeIcon } from '@mantine/core';
+import { 
+  ActionIcon,
+  Button, 
+  ThemeIcon,
+  Stack,
+  Group,
+  Code,
+  useMantineColorScheme,
+  Menu
+} from '@mantine/core';
 import { IconPhoto } from '@tabler/icons-react';
 import {
   IconFileAnalytics,
+  IconCrown
 } from '@tabler/icons-react';
 import classes from './styles/navbar.module.css';
 
 const data = [
-  { link: '', label: 'Tier 1', icon: IconFileAnalytics },
-  { link: '', label: 'Tier 2', icon: IconFileAnalytics },
-  { link: '', label: 'Tier 3', icon: IconFileAnalytics },
+  { link: '', label: 'Premier Cup', icon: IconCrown },
+  { link: '', label: 'Championship', icon: IconFileAnalytics },
+  { link: '', label: 'League 1', icon: IconFileAnalytics },
+  { link: '', label: 'All', icon: IconFileAnalytics },
+
 ];
 
-const NavBar = () => {
-  const [active, setActive] = useState('Billing');
+const NavBar = (props) => {
+  const { isMobile } = props;
+  const [active, setActive] = useState('Premier');
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   const handleOnClick = () => {
@@ -27,11 +34,13 @@ const NavBar = () => {
   }
 
   const links = data.map((item) => (
-    <a
-      className={classes.link}
+
+    <Button
+      variant='transparent'
+      fullWidth={true}
       data-active={item.label === active || undefined}
-      href={item.link}
       key={item.label}
+      justify='flex-start'
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
@@ -39,36 +48,73 @@ const NavBar = () => {
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </Button>
+
   ));
 
-  return (
+  const desktopMenu = 
     <nav className={classes.navbar}>
-      
       <div className={classes.navbarMain}>
-        <Group className={classes.header} justify="space-between">
-          <Code fw={700}>v0.0.1</Code>
-        </Group>
-        {links}
+        <Stack
+          gap="24px"
+          justify='center'
+          align='start'
+        >
+          {links}
+        </Stack>
+
       </div>
 
-      <ActionIcon
-        color="white"
-        radius="sm"
-        justify="center"
-        onClick={
-          () => handleOnClick()
-        }
+      <Group
+        className={classes.header}
+        justify="space-between"
       >
-        <ThemeIcon 
-          variant="default" 
-          radius="sm" 
-          size="md" 
+        <ActionIcon
+          color="white"
+          radius="sm"
+          justify="center"
+          onClick={
+            () => handleOnClick()
+          }
         >
-          <IconPhoto style={{ width: '100%', height: '100%' }} />
-        </ThemeIcon>
-      </ActionIcon >
-    </nav>
+          <ThemeIcon
+            variant="default"
+            radius="sm"
+            size="md"
+          >
+            <IconPhoto style={{ width: '100%', height: '100%' }} />
+          </ThemeIcon>
+        </ActionIcon >
+        <Code fw={700}>v0.0.1</Code>
+      </Group>
+
+    </nav>;
+
+  const mobileMenu = <Menu shadow="md" width={200}>
+    <Menu.Target>
+      <Button>Menu</Button>
+    </Menu.Target>
+    <Menu.Divider />
+    <Menu.Dropdown>
+      <Menu.Label>League of Leagues</Menu.Label>
+        {
+          data.map((item) => (
+            <Menu.Item
+              key={item.label}
+              leftSection={<item.icon className={classes.linkIcon} stroke={1.5} />}
+            >
+              {item.label}
+            </Menu.Item>
+          ))
+        }
+    </Menu.Dropdown>
+  </Menu>
+  ;
+
+  return (
+    <>
+      {isMobile ? desktopMenu : mobileMenu}
+    </>
   );
 }
 
