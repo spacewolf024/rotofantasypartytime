@@ -20,11 +20,8 @@ const App = () => {
   return (
     <>
       <MantineProvider defaultColorScheme="dark" theme={{ colorScheme }} >
-        <Container>
           <NavBar />
           <MainContent />
-        </Container>
-         
       </MantineProvider>
     </>
   )

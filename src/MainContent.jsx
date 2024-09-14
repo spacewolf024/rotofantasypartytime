@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Constants from './Constants'; 
 
 const MainContent = () => {
@@ -8,7 +8,7 @@ const MainContent = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch(`${Constants.apiBase}${Constants.apis.tier3}`);
+            const response = await fetch(`${Constants.apiBase}${Constants.apis.tierThreeId}/users`);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
