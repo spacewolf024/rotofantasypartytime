@@ -26,7 +26,7 @@ const data = [
 
 const NavBar = () => {
   const {
-    state: { isMobile, league }, 
+    state: { isMobile, leagueIndex }, 
     dispatch
   } = useAppContext();
   const [active, setActive] = useState('Premier');
