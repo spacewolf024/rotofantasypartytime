@@ -14,7 +14,6 @@ const MainContent = () => {
       useEffect(() => {
         const fetchLeagueData = async () => {
           const league = Constants.tierIds[leagueIndex];
-          console.log()
           const res = await getLeagueData(league);
           setData(res);
         };
