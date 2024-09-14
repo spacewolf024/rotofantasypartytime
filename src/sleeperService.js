@@ -20,10 +20,16 @@ export const getLeagueData = async (leagueId) => {
 
         const transformedData = rosters.map(roster => {
             const matchingUser = users.find(user => user.user_id === roster.owner_id);
-            return { ...roster, ...matchingUser };
+            return {
+                ...roster,
+                ...matchingUser,
+                record: roster.settings,
+                streak: roster.metadata,
+                pfp: getAvatarThumbnail(matchingUser.avatar)
+            };
         });
 
-        return await transformedData;
+        return sortDataByRecord(transformedData);
     } catch (error) {
         throw error;
     }
@@ -61,3 +67,26 @@ const getLeagueUsers = async (leagueId) => {
 export const getAvatarThumbnail = (avatarId) => {
     return `${Constants.thumbnailBase}${avatarId}`;
 };
+
+const sortDataByRecord = (leagueData) => {
+    const sortedData = leagueData.sort((a, b) => {
+        const recordA = a.record;
+        const recordB = b.record;
+
+        if (recordA.wins !== recordB.wins) {
+            return recordB.wins - recordA.wins;
+        }
+
+        if (recordA.ties !== recordB.ties) {
+            return recordB.ties - recordA.ties;
+        }
+
+        if (recordA.fpts !== recordB.fpts) {
+            return (recordB.fpts + recordB.fpts_decimal/100)  - (recordA.fpts + recordA.fpts_decimal/100); // Descending by fpts
+          }
+
+        // If all criteria are the same, return 0 (equal)
+        return 0;
+    });
+    return sortedData;
+}

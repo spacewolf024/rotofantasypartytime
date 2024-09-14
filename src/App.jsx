@@ -1,6 +1,7 @@
 import { 
   MantineProvider, 
-  Grid, 
+  Grid,
+  Table, 
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import MainContent from './MainContent';
@@ -31,10 +32,9 @@ const App = () => {
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 'content', lg: 'content' }}>
-            <MainContent />
+            <MainContent isMobile={isMobile} />
           </Grid.Col>
         </Grid>
-
       </MantineProvider>
     </>
   );
