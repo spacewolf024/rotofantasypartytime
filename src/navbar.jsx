@@ -107,6 +107,12 @@ const NavBar = () => {
             <Menu.Item
               key={item.label}
               leftSection={<item.icon className={classes.linkIcon} stroke={1.5} />}
+              onClick={(event) => {
+                event.preventDefault();
+                setActive(item.label);
+                dispatch({ type: 'set_league', payload: item.id });
+              }}
+              
             >
               {item.label}
             </Menu.Item>
