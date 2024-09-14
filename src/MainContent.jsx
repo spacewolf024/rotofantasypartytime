@@ -23,7 +23,7 @@ const MainContent = () => {
     }, []);
 
     return (
-        <Container>
+        <Container size="responsive">
             {
               data ? (
                   <pre>{JSON.stringify(data, null, 2)}</pre>

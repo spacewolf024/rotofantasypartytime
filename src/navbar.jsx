@@ -90,7 +90,8 @@ const NavBar = (props) => {
 
     </nav>;
 
-  const mobileMenu = <Menu shadow="md" width={200}>
+  const mobileMenu = 
+  <Menu shadow="md" width={320}>
     <Menu.Target>
       <Button>Menu</Button>
     </Menu.Target>
@@ -107,6 +108,28 @@ const NavBar = (props) => {
             </Menu.Item>
           ))
         }
+        <Menu.Item
+          className={classes.header}
+          justify="space-between"
+        >
+          <ActionIcon
+            color="white"
+            radius="sm"
+            justify="center"
+            onClick={
+              () => handleOnClick()
+            }
+          >
+            <ThemeIcon
+              variant="default"
+              radius="sm"
+              size="md"
+            >
+              <IconPhoto style={{ width: '100%', height: '100%' }} />
+            </ThemeIcon>
+          </ActionIcon >
+          <Code fw={700}>v0.0.1</Code>
+        </Menu.Item>
     </Menu.Dropdown>
   </Menu>
   ;
