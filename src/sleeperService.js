@@ -1,38 +1,31 @@
 import Constants from './Constants';
 
 export const getLeague = async (leagueId) => {
-    try {
-        const response = await fetch(`${Constants.apiBase}/${leagueId}`);
+    const response = await fetch(`${Constants.apiBase}/${leagueId}`);
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch league: ', leagueId);
-        }
-
-        return await response.json();
-    } catch (error) {
-        throw error;
+    if (!response.ok) {
+        throw new Error('Failed to fetch league: ', leagueId);
     }
+
+    return await response.json();
+
 };
 
 export const getLeagueData = async (leagueId) => {
-    try {
-        const [users, rosters] = await Promise.all([getLeagueUsers(leagueId), getLeagueRosters(leagueId)]);
+    const [users, rosters] = await Promise.all([getLeagueUsers(leagueId), getLeagueRosters(leagueId)]);
 
-        const transformedData = rosters.map(roster => {
-            const matchingUser = users.find(user => user.user_id === roster.owner_id);
-            return {
-                ...roster,
-                ...matchingUser,
-                record: roster.settings,
-                streak: roster.metadata,
-                pfp: getAvatarThumbnail(matchingUser.avatar)
-            };
-        });
+    const transformedData = rosters.map(roster => {
+        const matchingUser = users.find(user => user.user_id === roster.owner_id);
+        return {
+            ...roster,
+            ...matchingUser,
+            record: roster.settings,
+            streak: roster.metadata,
+            pfp: getAvatarThumbnail(matchingUser.avatar)
+        };
+    });
 
         return sortDataByRecord(transformedData);
-    } catch (error) {
-        throw error;
-    }
 };
 
 const getLeagueRosters = async (leagueId) => {
@@ -49,19 +42,37 @@ const getLeagueRosters = async (leagueId) => {
         throw error;
     }
 };
-
-const getLeagueUsers = async (leagueId) => {
+export const getAllLeaguesData = async () => {
     try {
-        const response = await fetch(`${Constants.apiBase}/${leagueId}/users`);
+        // Use Promise.all to fetch data for all leagues concurrently
+        const allLeaguesData = await Promise.all(
+            Constants.tierIds.map(async (leagueId) => {
+                // Fetch league data using the existing getLeagueData function
+                const leagueData = await getLeagueData(leagueId);
+                return {
+                    leagueId, // Include the leagueId for reference
+                    data: sortDataByRecord(leagueData) // Sort data for each league
+                };
+            })
+        );
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch league rosters: ', leagueId);
-        }
-
-        return await response.json();
+        return allLeaguesData; // Return data sorted by league
     } catch (error) {
+        console.error('Error fetching data for all leagues:', error);
         throw error;
     }
+};
+
+
+const getLeagueUsers = async (leagueId) => {
+    const response = await fetch(`${Constants.apiBase}/${leagueId}/users`);
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch league rosters: ', leagueId);
+    }
+
+    return await response.json();
+ 
 };
 
 export const getAvatarThumbnail = (avatarId) => {
