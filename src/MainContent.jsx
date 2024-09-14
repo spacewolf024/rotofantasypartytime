@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { Loader } from '@mantine/core';
 import Constants from './Constants'; 
 
 const MainContent = () => {
@@ -8,7 +9,7 @@ const MainContent = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-            const response = await fetch(`${Constants.apiBase}${Constants.apis.tierThreeId}/users`);
+          const response = await fetch(`${Constants.apiBase}${Constants.tierIds.three}/users`);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
@@ -18,17 +19,18 @@ const MainContent = () => {
           console.error("Error fetching data:", error);
         }
       };
-  
       fetchData();
     }, []);
 
     return (
         <>
-            {data ? (
-                <pre>{JSON.stringify(data, null, 2)}</pre>
-            ) : (
-                <p>Loading...</p>
-            )}
+            {
+              data ? (
+                  <pre>{JSON.stringify(data, null, 2)}</pre>
+              ) : (
+                <Loader color="white" />
+              )
+            }
         </>
     )
 };

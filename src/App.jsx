@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { MantineProvider, Container } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import MainContent from './MainContent';
 import NavBar from './NavBar';
 import  './App.css';
@@ -15,13 +14,12 @@ import '@mantine/core/styles.css';
 
 
 const App = () => {
-  const [colorScheme, setColorScheme] = useState('dark');
-
+  
   return (
     <>
-      <MantineProvider defaultColorScheme="dark" theme={{ colorScheme }} >
-          <NavBar />
-          <MainContent />
+      <MantineProvider defaultColorScheme='dark' >
+        <NavBar />
+        <MainContent />
       </MantineProvider>
     </>
   )
