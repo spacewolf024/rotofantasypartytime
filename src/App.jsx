@@ -14,7 +14,13 @@ const Layout = () => {
   const isMobileQuery = useResponsive(250);
 
   useEffect(() => {
-    console.log(Constants.ascii)
+
+    const styles = [
+      'background: #222',
+      'color: white'
+  ].join(';');
+
+    console.log(`%c${Constants.ascii}`, styles)
   }, [])
 
   useEffect(() => {
