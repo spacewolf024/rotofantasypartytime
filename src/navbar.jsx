@@ -9,18 +9,20 @@ import {
   useMantineColorScheme,
   Menu
 } from '@mantine/core';
-import { IconPhoto } from '@tabler/icons-react';
 import {
   IconFileAnalytics,
-  IconCrown
+  IconCrown,
+  IconTrash,
+  IconBrightnessFilled,
+  IconCrownOff
 } from '@tabler/icons-react';
 import classes from './styles/navbar.module.css';
 import useAppContext from './useAppContext';
 
 const data = [
   { id: 0, label: 'Premier Cup', icon: IconCrown },
-  { id: 1, label: 'Championship', icon: IconFileAnalytics },
-  { id: 2, label: 'League 1', icon: IconFileAnalytics },
+  { id: 1, label: 'Championship', icon: IconCrownOff },
+  { id: 2, label: 'League 1', icon: IconTrash },
   { id: 3, label: 'All', icon: IconFileAnalytics },
 ];
 
@@ -57,7 +59,7 @@ const NavBar = () => {
   ));
 
   const desktopMenu = 
-    <nav className={classes.navbar}>
+    <nav className={classes.desktopNav}>
       <div className={classes.navbarMain}>
         <Stack
           gap="24px"
@@ -86,7 +88,7 @@ const NavBar = () => {
             radius="sm"
             size="md"
           >
-            <IconPhoto style={{ width: '100%', height: '100%' }} />
+            <IconBrightnessFilled style={{ width: '100%', height: '100%' }} />
           </ThemeIcon>
         </ActionIcon >
         <Code fw={700}>v0.0.1</Code>
@@ -95,7 +97,7 @@ const NavBar = () => {
     </nav>;
 
   const mobileMenu = 
-  <Menu shadow="md" width={320}>
+  <Menu>
     <Menu.Target>
       <Button>Menu</Button>
     </Menu.Target>
@@ -135,7 +137,7 @@ const NavBar = () => {
               radius="sm"
               size="md"
             >
-              <IconPhoto style={{ width: '100%', height: '100%' }} />
+              <IconBrightnessFilled style={{ width: '100%', height: '100%' }} />
             </ThemeIcon>
           </ActionIcon >
           <Code fw={700}>v0.0.1</Code>

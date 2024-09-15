@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Avatar, 
   Container, 
@@ -33,7 +33,9 @@ const MainContent = () => {
       };
 
       fetchAllLeaguesData();
+
     } else {
+
       const fetchLeagueData = async () => {
         try {
           const league = Constants.tierIds[leagueIndex];
@@ -51,77 +53,71 @@ const MainContent = () => {
     }
   }, [leagueIndex]);
 
-  const icon = <IconInfoCircle />;
 
-  const renderRows = (leagueData) => {
-    return leagueData.map((element, index) => (
-      <Table.Tr key={element.user_id}> 
-        <Table.Td>{index + 1}</Table.Td>
-        <Table.Td>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar src={element.pfp} />
-            <strong>{element.metadata.team_name || `Team ${element.display_name || 'Unknown'}`}</strong>
-          </div>
-        </Table.Td>
-        <Table.Td>{element.display_name}</Table.Td>
-        <Table.Td>{element.record.wins}-{element.record.ties}-{element.record.losses}</Table.Td>
-        <Table.Td>{element.record.fpts}.{element.record.fpts_decimal}</Table.Td>
-        <Table.Td>{element.record.fpts_against}.{element.record.fpts_against_decimal}</Table.Td>
-        <Table.Td>{element.streak.streak}</Table.Td>
-        <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
-      </Table.Tr>
-    ));
-  };
+  const desktopRows = data && Array.isArray(data) ?
+      
+      data.map((league) => 
+      {
+        return (
+          <React.Fragment key={league.leagueId}>
+            {
+              league.data.map((element, index) => {
+                return (
+                  <Table.Tr key={element.user_id}> 
+                    <Table.Td>{index + 1}</Table.Td>
+                    <Table.Td>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Avatar src={element.pfp} />
+                        <strong>{element.metadata.team_name || `Team ${element.display_name || 'Unknown'}`}</strong>
+                      </div>
+                    </Table.Td>
+                    <Table.Td>{element.display_name}</Table.Td>
+                    <Table.Td>{element.record.wins}-{element.record.ties}-{element.record.losses}</Table.Td>
+                    <Table.Td>{element.record.fpts}.{element.record.fpts_decimal}</Table.Td>
+                    <Table.Td>{element.record.fpts_against}.{element.record.fpts_against_decimal}</Table.Td>
+                    <Table.Td>{element.streak.streak}</Table.Td>
+                    <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
+                  </Table.Tr>
+                )
+              })
+            }
 
-  const mobileTable = (leagueData) => (
-    <Table className="table-left-align" striped={true}>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Rank</Table.Th>
-          <Table.Th>Team</Table.Th>
-          <Table.Th>PF</Table.Th>
-          <Table.Th>PA</Table.Th>
-          <Table.Th>Streak</Table.Th>
-          <Table.Th>Budget Remaining</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>{renderRows(leagueData)}</Table.Tbody>
-    </Table>
-  );
+          </React.Fragment>
+        )
+      })
+  : 
+  null;
+      
+    
+  
 
-  const desktopTable = (leagueData) => (
-    <Table className="table-left-align" striped={true}>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Rank</Table.Th>
-          <Table.Th>Team</Table.Th>
-          <Table.Th>Manager</Table.Th>
-          <Table.Th>Record</Table.Th>
-          <Table.Th>PF</Table.Th>
-          <Table.Th>PA</Table.Th>
-          <Table.Th>Streak</Table.Th>
-          <Table.Th>Budget Remaining</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>{renderRows(leagueData)}</Table.Tbody>
-    </Table>
-  );
+const mobileRows = data && data.map((league) => 
+  {
+    return (
+      <React.Fragment key={league.leagueId}>
+        {
+          league.data.map((element, index) => {
+            return (
+              <Table.Tr key={element.user_id}> 
+                <Table.Td>{index + 1}</Table.Td>
+                <Table.Td><strong>{element.metadata.team_name || `Team ${element.display_name || 'Unknown'}`}</strong><br />{element.display_name}<br />{element.record.wins}-{element.record.ties}-{element.record.losses}</Table.Td>
+                <Table.Td>{element.record.fpts}.{element.record.fpts_decimal}</Table.Td>
+                <Table.Td>{element.record.fpts_against}.{element.record.fpts_against_decimal}</Table.Td>
+                <Table.Td>{element.streak.streak}</Table.Td>
+                <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
+              </Table.Tr>
+                            )
+          })
+        }
 
-  const displayLeagueTables = () => {
-    if (data && Array.isArray(data)) {
-      return data.map((league) => (
-        <div key={league.leagueId}>
-          {isMobile ? mobileTable(league.data) : desktopTable(league.data)}
-        </div>
-      ));
-    }
-    return null;
-  };
+      </React.Fragment>
+    )
+})
 
   return (
-    <Container size="xl">
+    <Container>
       {error && (
-        <Alert variant="light" color="violet" title="Error" icon={icon}>
+        <Alert variant="light" color="violet" title="Error" icon={IconInfoCircle}>
           Problem retrieving data. Please try again later.
         </Alert>
       )}
@@ -130,9 +126,41 @@ const MainContent = () => {
           <Loader color="grape" type={'dots'} />
         </Flex>
       )}
-      {displayLeagueTables()}
+      
+      {(isMobile && data && !error) ? (
+        <Table className="table-left-align">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Rank</Table.Th>
+              <Table.Th>Team</Table.Th>
+              <Table.Th>PF</Table.Th>
+              <Table.Th>PA</Table.Th>
+              <Table.Th>Streak</Table.Th>
+              <Table.Th>Budget</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{mobileRows}</Table.Tbody>
+        </Table>
+      ) : (
+        <Table className="table-left-align">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Rank</Table.Th>
+              <Table.Th>Team</Table.Th>
+              <Table.Th>Manager</Table.Th>
+              <Table.Th>Record</Table.Th>
+              <Table.Th>PF</Table.Th>
+              <Table.Th>PA</Table.Th>
+              <Table.Th>Streak</Table.Th>
+              <Table.Th>Budget Remaining</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{desktopRows}</Table.Tbody>
+        </Table>
+      )}
+
     </Container>
-  );
+  )
 };
 
 export default MainContent;
