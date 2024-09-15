@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
-import { MantineProvider, Grid } from '@mantine/core';
+import { 
+  MantineProvider, 
+
+} from '@mantine/core';
 import { AppProvider } from './AppContext';
 import useResponsive from './useResponsive';
 import useAppContext from './useAppContext';
@@ -10,7 +13,7 @@ import './styles/App.css';
 import '@mantine/core/styles.css';
 
 const Layout = () => {
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
   const isMobileQuery = useResponsive(250);
 
   useEffect(() => {
@@ -21,6 +24,7 @@ const Layout = () => {
   ].join(';');
 
     console.log(`%c${Constants.ascii}`, styles)
+
   }, [])
 
   useEffect(() => {
@@ -32,12 +36,11 @@ const Layout = () => {
       className="container"
     >
         <NavBar/>
-        <MainContent 
-          className="mainContent" 
-        />
+        <MainContent />
     </div>
   );
 };
+
 
 const App = () => {
   return (

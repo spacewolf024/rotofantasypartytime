@@ -5,7 +5,8 @@ import {
   Loader, 
   Alert, 
   Flex,
-  Table
+  Table,
+  Group
 } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 import useAppContext from './useAppContext';
@@ -99,8 +100,15 @@ const mobileRows = data && data.map((league) =>
           league.data.map((element, index) => {
             return (
               <Table.Tr key={element.user_id}> 
-                <Table.Td>{index + 1}</Table.Td>
-                <Table.Td><strong>{element.metadata.team_name || `Team ${element.display_name || 'Unknown'}`}</strong><br />{element.display_name}<br />{element.record.wins}-{element.record.ties}-{element.record.losses}</Table.Td>
+                <Table.Td>
+                  <Group>
+                    {index + 1}.
+                    <Avatar src={element.pfp}/><br />
+                  </Group>
+                  
+                  {element.display_name}<br />
+                  {element.record.wins}-{element.record.ties}-{element.record.losses}
+                </Table.Td>
                 <Table.Td>{element.record.fpts}.{element.record.fpts_decimal}</Table.Td>
                 <Table.Td>{element.record.fpts_against}.{element.record.fpts_against_decimal}</Table.Td>
                 <Table.Td>{element.streak.streak}</Table.Td>
@@ -109,18 +117,19 @@ const mobileRows = data && data.map((league) =>
                             )
           })
         }
-
       </React.Fragment>
     )
 })
 
   return (
     <Container>
+
       {error && (
         <Alert variant="light" color="violet" title="Error" icon={IconInfoCircle}>
           Problem retrieving data. Please try again later.
         </Alert>
       )}
+
       {!data && !error && (
         <Flex gap="md" justify="center" align="center">
           <Loader color="grape" type={'dots'} />
@@ -128,21 +137,32 @@ const mobileRows = data && data.map((league) =>
       )}
       
       {(isMobile && data && !error) ? (
-        <Table className="table-left-align">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Rank</Table.Th>
-              <Table.Th>Team</Table.Th>
-              <Table.Th>PF</Table.Th>
-              <Table.Th>PA</Table.Th>
-              <Table.Th>Streak</Table.Th>
-              <Table.Th>Budget</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{mobileRows}</Table.Tbody>
-        </Table>
-      ) : (
-        <Table className="table-left-align">
+          <Table
+            className="table-left-align" 
+            stickyHeader
+            stickyHeaderOffset={0}
+            withTableBorder
+            striped 
+          >
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Rank</Table.Th>
+                <Table.Th>PF</Table.Th>
+                <Table.Th>PA</Table.Th>
+                <Table.Th>Streak</Table.Th>
+                <Table.Th>Budget</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{mobileRows}</Table.Tbody>
+          </Table>
+      ) 
+      : 
+      (
+        <Table 
+          className="table-left-align" 
+          stickyHeader
+          striped 
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Rank</Table.Th>

@@ -28,7 +28,7 @@ const data = [
 
 const NavBar = () => {
   const {
-    state: { isMobile, leagueIndex }, 
+    state: { isMobile }, 
     dispatch
   } = useAppContext();
   const [active, setActive] = useState('Premier Cup');
@@ -41,7 +41,27 @@ const NavBar = () => {
   const links = data.map((item) => (
 
     <Button
-      variant='transparent'
+      className={classes.navButton}
+      styles={{
+        root: {
+          border: 0,
+          color: '#fff',
+          '--button-hover': '#fff',
+          '--button-hover-color': 'var(--mantine-color-violet-filled)',
+          '--button-bg': 'transparent'
+        },
+        inner: {
+          border: 0,
+          '--button-hover-color': 'var(--mantine-color-violet-filled)',
+          '--button-bg': 'transparent'
+        },
+        label: {
+          border: 0,
+          '--button-hover-color': 'var(--mantine-color-violet-filled)',
+          '--button-bg': 'transparent'
+        }, 
+
+      }}
       fullWidth={true}
       data-active={item.label === active || undefined}
       key={item.label}
@@ -97,9 +117,9 @@ const NavBar = () => {
     </nav>;
 
   const mobileMenu = 
-  <Menu>
+  <Menu transitionProps={{ transition: 'pop', duration: 350 }} shadow="md" width={200}>
     <Menu.Target>
-      <Button>Menu</Button>
+      <Button >Menu</Button>
     </Menu.Target>
     <Menu.Divider />
     <Menu.Dropdown>
@@ -108,6 +128,7 @@ const NavBar = () => {
           data.map((item) => (
             <Menu.Item
               key={item.label}
+              data-active={item.label === active || undefined}
               leftSection={<item.icon className={classes.linkIcon} stroke={1.5} />}
               onClick={(event) => {
                 event.preventDefault();
@@ -120,27 +141,31 @@ const NavBar = () => {
             </Menu.Item>
           ))
         }
+
+        <Menu.Divider></Menu.Divider>
         <Menu.Item
           className={classes.header}
           justify="space-between"
         >
-          <ActionIcon
-            color="white"
-            radius="sm"
-            justify="center"
-            onClick={
-              () => handleOnClick()
-            }
-          >
-            <ThemeIcon
-              variant="default"
+          <Group>
+            <ActionIcon
+              color="white"
               radius="sm"
-              size="md"
+              justify="center"
+              onClick={
+                () => handleOnClick()
+              }
             >
-              <IconBrightnessFilled style={{ width: '100%', height: '100%' }} />
-            </ThemeIcon>
-          </ActionIcon >
-          <Code fw={700}>v0.0.1</Code>
+              <ThemeIcon
+                variant="default"
+                radius="sm"
+                size="md"
+              >
+                <IconBrightnessFilled style={{ width: '100%', height: '100%' }} />
+              </ThemeIcon>
+            </ActionIcon >
+            <Code fw={700}>v0.0.1</Code>
+          </Group>
         </Menu.Item>
     </Menu.Dropdown>
   </Menu>
