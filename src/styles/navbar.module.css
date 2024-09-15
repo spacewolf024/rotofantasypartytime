@@ -48,15 +48,17 @@
   text-align: left;
   text-decoration: none;
   font-size: var(--mantine-font-size-sm);
-  color: var(--mantine-color-violet-light);
+  color: light-dark(var(--mantine-color-violet-filled), var(--mantine-color-violet-filled));
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
   border-radius: var(--mantine-radius-sm);
   font-weight: 500;
   outline: none;
   background-color: transparent;
+  width: 100%;
 
   &:hover {
-    color: var(--mantine-color-violet-filled) !important;
+    color: var(--mantine-color-violet-filled);
+    background: var(--mantine-color-violet-light);
     
     .linkIcon {
         color: var(--mantine-color-violet-filled);
@@ -64,7 +66,7 @@
   }
 
   &:focus {
-      color: var(--mantine-color-violet-filled) !important;
+      color: var(--mantine-color-violet-filled);
       
       .linkIcon {
         color: var(--mantine-color-violet-filled);
@@ -72,17 +74,14 @@
   }
 
   &[data-active] {
-    background-color: var(--mantine-color-violet-filled);
-
-    color: var(--mantine-color-violet-filled);
-    
+    color: var(--mantine-color-white);
+    background: var(--mantine-color-violet-filled);
 
     &:hover {
-      background-color: var(--mantine-color-violet-filled);
-      color: var(--mantine-color-violet-filled) !important;
+      color: var(--mantine-color-white);
     
       .linkIcon {
-        color: white;
+        color: var(--mantine-color-white);
       }
     }
 
@@ -100,4 +99,52 @@
   margin-right: var(--mantine-spacing-sm);
   width: 25px;
   height: 25px;
+}
+
+
+
+[data-mantine-color-scheme="dark"] {
+    .navButton {
+      color: var(--mantine-color-white);
+
+    &:hover {
+      color: var(--mantine-color-white);
+      background: var(--mantine-color-violet-light);
+      
+      .linkIcon {
+          color: var(--mantine-color-white);
+      }
+    }
+
+    &:focus {
+        color: var(--mantine-color-violet-filled);
+        
+        .linkIcon {
+          color: var(--mantine-color-violet-filled);
+        }
+    }
+
+    &[data-active] {
+
+      color: var(--mantine-color-white);
+      background: var(--mantine-color-violet-filled);
+
+      &:hover {
+        color: var(--mantine-color-violet-filled);
+        background: var(--mantine-color-violet-filled);
+      
+        .linkIcon {
+          color: white;
+        }
+      }
+
+      &:focus {
+        color: var(--mantine-color-white);
+
+        .linkIcon {
+          color: #fff;
+        }
+      }
+    }
+  }
 }

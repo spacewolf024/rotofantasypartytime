@@ -40,21 +40,10 @@ const NavBar = () => {
 
   const links = data.map((item) => (
 
-    <Button
+    <button
       className={classes.navButton}
-      styles={{
-        root: {
-          border: 0,
-          color: '#fff',
-          '--button-hover': '#fff',
-          '--button-hover-color': 'var(--mantine-color-violet-filled)',
-          '--button-bg': 'transparent'
-        }
-      }}
-      fullWidth={true}
       data-active={item.label === active || undefined}
       key={item.label}
-      justify='flex-start'
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
@@ -63,7 +52,7 @@ const NavBar = () => {
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </Button>
+    </button>
 
   ));
 
