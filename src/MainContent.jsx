@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Container, Loader, Alert, Flex, Text } from '@mantine/core';
+import { 
+  Avatar, 
+  Container, 
+  Loader, 
+  Alert, 
+  Flex,
+  Table
+} from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 import useAppContext from './useAppContext';
 import Constants from './Constants';
 import { getLeagueData, getAllLeaguesData } from './sleeperService';
-import { Table } from '@mantine/core';
 import './TableStyle.css';
 
 const MainContent = () => {
@@ -49,7 +55,7 @@ const MainContent = () => {
 
   const renderRows = (leagueData) => {
     return leagueData.map((element, index) => (
-      <Table.Tr key={element.user_id}> {/* Use a unique key */}
+      <Table.Tr key={element.user_id}> 
         <Table.Td>{index + 1}</Table.Td>
         <Table.Td>
           <div style={{ display: 'flex', alignItems: 'center' }}>
