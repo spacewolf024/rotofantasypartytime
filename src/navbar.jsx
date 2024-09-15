@@ -49,18 +49,7 @@ const NavBar = () => {
           '--button-hover': '#fff',
           '--button-hover-color': 'var(--mantine-color-violet-filled)',
           '--button-bg': 'transparent'
-        },
-        inner: {
-          border: 0,
-          '--button-hover-color': 'var(--mantine-color-violet-filled)',
-          '--button-bg': 'transparent'
-        },
-        label: {
-          border: 0,
-          '--button-hover-color': 'var(--mantine-color-violet-filled)',
-          '--button-bg': 'transparent'
-        }, 
-
+        }
       }}
       fullWidth={true}
       data-active={item.label === active || undefined}
@@ -117,9 +106,19 @@ const NavBar = () => {
     </nav>;
 
   const mobileMenu = 
-  <Menu transitionProps={{ transition: 'pop', duration: 350 }} shadow="md" width={200}>
+  <Menu
+    transitionProps={{ transition: 'pop', duration: 350 }} 
+    shadow="md"
+    width={275}
+
+  >
     <Menu.Target>
-      <Button >Menu</Button>
+      <Button
+        styles={{
+        root: { backgroundColor: 'var(--mantine-color-violet-filled)' },
+        label: { color: '#fff' },
+      }} 
+      >Menu</Button>
     </Menu.Target>
     <Menu.Divider />
     <Menu.Dropdown>
@@ -135,14 +134,14 @@ const NavBar = () => {
                 setActive(item.label);
                 dispatch({ type: 'set_league', payload: item.id });
               }}
-              
             >
               {item.label}
             </Menu.Item>
           ))
         }
 
-        <Menu.Divider></Menu.Divider>
+        <Menu.Divider />
+
         <Menu.Item
           className={classes.header}
           justify="space-between"
