@@ -10,20 +10,20 @@ import {
   Menu
 } from '@mantine/core';
 import {
-  IconFileAnalytics,
+  IconChartBar,
   IconCrown,
   IconTrash,
   IconBrightnessFilled,
-  IconCrownOff
-} from '@tabler/icons-react';
+  IconCrownOff,
+} from "@tabler/icons-react";
 import classes from './styles/navbar.module.css';
 import useAppContext from './useAppContext';
 
 const data = [
-  { id: 0, label: 'Premier Cup', icon: IconCrown },
-  { id: 1, label: 'Championship', icon: IconCrownOff },
-  { id: 2, label: 'League 1', icon: IconTrash },
-  { id: 3, label: 'All', icon: IconFileAnalytics },
+  { id: 3, label: "All", icon: IconChartBar },
+  { id: 0, label: "Premier Cup", icon: IconCrown },
+  { id: 1, label: "Championship", icon: IconCrownOff },
+  { id: 2, label: "League 1", icon: IconTrash },
 ];
 
 const NavBar = () => {
@@ -31,7 +31,7 @@ const NavBar = () => {
     state: { isMobile }, 
     dispatch
   } = useAppContext();
-  const [active, setActive] = useState('Premier Cup');
+  const [active, setActive] = useState('All');
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   const handleOnClick = () => {

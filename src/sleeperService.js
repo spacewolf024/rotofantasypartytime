@@ -23,6 +23,7 @@ export const getLeagueData = async (leagueId) => {
             streak: roster.metadata,
             pfp: getAvatarThumbnail(matchingUser.avatar)
         };
+        
     });
 
         return sortDataByRecord(transformedData);
@@ -44,14 +45,12 @@ const getLeagueRosters = async (leagueId) => {
 };
 export const getAllLeaguesData = async () => {
     try {
-        // Use Promise.all to fetch data for all leagues concurrently
         const allLeaguesData = await Promise.all(
             Constants.tierIds.map(async (leagueId) => {
-                // Fetch league data using the existing getLeagueData function
                 const leagueData = await getLeagueData(leagueId);
                 return {
-                    leagueId, // Include the leagueId for reference
-                    data: sortDataByRecord(leagueData) // Sort data for each league
+                    leagueId, 
+                    data: sortDataByRecord(leagueData) 
                 };
             })
         );

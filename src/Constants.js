@@ -5,6 +5,11 @@ const Constants = {
         '1113479200771629056',
         '1113842218692878336'
     ],
+    leagueNames: {
+        '1113479147663273984': 'Premier Cup',
+        '1113479200771629056': 'Championship',
+        '1113842218692878336': 'League 1'
+    },
     cdnBase: 'https://sleepercdn.com/avatars/',
     thumbnailBase: 'https://sleepercdn.com/avatars/thumbs/',
     ascii:

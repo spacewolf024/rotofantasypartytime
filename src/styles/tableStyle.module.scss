@@ -1,0 +1,31 @@
+.tableContainer {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+
+}
+
+
+.tableContainer3  {
+
+}
+
+[class*="tableId"] {
+    writing-mode: vertical-rl; 
+    text-orientation: mixed;   
+    transform: rotate(180deg); 
+    white-space: nowrap;       
+    display: inline-block; 
+    color: var(--mantine-color-white);
+}
+
+.tableId0 {
+    background: var(--mantine-color-violet-light);
+}
+
+.tableId1 {
+  background: var(--mantine-color-violet-filled);
+}
+
+.tableId2 {
+  background-color: var(--mantine-color-indigo-9); 
+}
