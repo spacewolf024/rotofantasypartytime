@@ -4,7 +4,6 @@
 
 }
 
-
 .tableContainer3  {
 
 }
@@ -18,9 +17,18 @@
     color: var(--mantine-color-white);
 }
 
-.tableId0 {
-    background: var(--mantine-color-violet-light);
+[data-mantine-color-scheme="dark"] {
+  .tableId0 {
+      background:  var(--mantine-color-violet-light);
+  }
 }
+
+[data-mantine-color-scheme="light"] {
+  .tableId0 {
+      background:  var(--mantine-color-grape-9);
+  }
+}
+
 
 .tableId1 {
   background: var(--mantine-color-violet-filled);
