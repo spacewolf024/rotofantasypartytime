@@ -1,5 +1,6 @@
 import { createContext, useReducer } from 'react';
 import appReducer from './AppReducer';
+import { Title } from '@mantine/core';
 
 const AppContext = createContext();
 
@@ -16,6 +17,7 @@ const AppProvider = ({children}) => {
 
     return (
         <AppContext.Provider value={value}>
+            <Title>The Commissioner's Fantasy Circuit</Title>
             {children}
         </AppContext.Provider>
     );

@@ -61,7 +61,7 @@ const MainContent = () => {
               </strong>
             </div>
           </Table.Td>
-          <Table.Td>{element.display_name}</Table.Td>
+          <Table.Td>@{element.display_name}</Table.Td>
           <Table.Td>
             {element.record.wins}-{element.record.ties}-{element.record.losses}
           </Table.Td>
@@ -80,16 +80,16 @@ const MainContent = () => {
   const renderMobileRows = (league) => {
     return league.data.map((element, index) => (
       <Table.Tr key={element.user_id}>
+        <Table.Td><Group>{index + 1}<Avatar className={classes.avatar} src={element.pfp} /></Group></Table.Td>
         <Table.Td>
-          <Group>
-            {index + 1}.<strong>
-                {element.metadata.team_name ||
-                  `Team ${element.display_name || "Unknown"}`}
-              </strong>
-          </Group>
-          {element.display_name}
-          <br />
-          {element.record.wins}-{element.record.ties}-{element.record.losses}
+            <strong>
+              {element.metadata.team_name ||
+                `Team ${element.display_name || "Unknown"}`}
+            </strong>
+            <br/>
+            @{element.display_name}
+            <br />
+            {element.record.wins}-{element.record.ties}-{element.record.losses} 
         </Table.Td>
         <Table.Td>
           {element.record.fpts}.{element.record.fpts_decimal}
@@ -97,7 +97,6 @@ const MainContent = () => {
         <Table.Td>
           {element.record.fpts_against}.{element.record.fpts_against_decimal}
         </Table.Td>
-        <Table.Td>{element.streak.streak}</Table.Td>
         <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
       </Table.Tr>
     ));
@@ -121,10 +120,10 @@ const MainContent = () => {
             <Table.Tr>
               {isMobile ? (
                 <>
+                  <Table.Th>Rank</Table.Th>
                   <Table.Th>Team</Table.Th>
                   <Table.Th>PF</Table.Th>
                   <Table.Th>PA</Table.Th>
-                  <Table.Th>Streak</Table.Th>
                   <Table.Th>Budget</Table.Th>
                 </>
               ) : (

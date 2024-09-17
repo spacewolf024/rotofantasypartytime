@@ -59,18 +59,18 @@
   &:hover {
     color: var(--mantine-color-violet-filled);
     background: var(--mantine-color-violet-light);
-    
+
     .linkIcon {
-        color: var(--mantine-color-violet-filled);
+      color: var(--mantine-color-violet-filled);
     }
   }
 
   &:focus {
+    color: var(--mantine-color-violet-filled);
+
+    .linkIcon {
       color: var(--mantine-color-violet-filled);
-      
-      .linkIcon {
-        color: var(--mantine-color-violet-filled);
-      }
+    }
   }
 
   &[data-active] {
@@ -79,7 +79,7 @@
 
     &:hover {
       color: var(--mantine-color-white);
-    
+
       .linkIcon {
         color: var(--mantine-color-white);
       }
@@ -104,24 +104,24 @@
 
 
 [data-mantine-color-scheme="dark"] {
-    .navButton {
-      color: var(--mantine-color-white);
+  .navButton {
+    color: var(--mantine-color-white);
 
     &:hover {
       color: var(--mantine-color-white);
       background: var(--mantine-color-violet-light);
-      
+
       .linkIcon {
-          color: var(--mantine-color-white);
+        color: var(--mantine-color-white);
       }
     }
 
     &:focus {
+      color: var(--mantine-color-violet-filled);
+
+      .linkIcon {
         color: var(--mantine-color-violet-filled);
-        
-        .linkIcon {
-          color: var(--mantine-color-violet-filled);
-        }
+      }
     }
 
     &[data-active] {
@@ -132,7 +132,7 @@
       &:hover {
         color: var(--mantine-color-white);
         background: var(--mantine-color-violet-filled);
-      
+
         .linkIcon {
           color: var(--mantine-color-white);
         }
