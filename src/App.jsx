@@ -19,7 +19,7 @@ const Layout = () => {
   useEffect(() => {
 
     const styles = [
-      'background: #222',
+      'background: rgba(129, 24, 221, 1)',
       'color: white'
   ].join(';');
 
