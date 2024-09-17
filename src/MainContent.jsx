@@ -51,7 +51,6 @@ const MainContent = () => {
   const renderRows = (league) => {
     return league.data.map((element, index) => (
       <Table.Tr key={element.user_id} className={`${classes['row' + element.owner_id]}`}>
-        <div className={`${classes['glow' + element.owner_id]}`}></div>
           <Table.Td>{index + 1}</Table.Td>
           <Table.Td>
             <div style={{ display: "flex", alignItems: "center" }}>
