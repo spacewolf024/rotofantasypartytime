@@ -50,29 +50,30 @@ const MainContent = () => {
 
   const renderRows = (league) => {
     return league.data.map((element, index) => (
-      <Table.Tr key={element.user_id}>
-        <Table.Td>{index + 1}</Table.Td>
-        <Table.Td>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Avatar className={classes.avatar} src={element.pfp} />
-            <strong>
-              {element.metadata.team_name ||
-                `Team ${element.display_name || "Unknown"}`}
-            </strong>
-          </div>
-        </Table.Td>
-        <Table.Td>{element.display_name}</Table.Td>
-        <Table.Td>
-          {element.record.wins}-{element.record.ties}-{element.record.losses}
-        </Table.Td>
-        <Table.Td>
-          {element.record.fpts}.{element.record.fpts_decimal}
-        </Table.Td>
-        <Table.Td>
-          {element.record.fpts_against}.{element.record.fpts_against_decimal}
-        </Table.Td>
-        <Table.Td>{element.streak.streak}</Table.Td>
-        <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
+      <Table.Tr key={element.user_id} className={`${classes['row' + element.owner_id]}`}>
+        <div className={`${classes['glow' + element.owner_id]}`}></div>
+          <Table.Td>{index + 1}</Table.Td>
+          <Table.Td>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Avatar className={classes.avatar} src={element.pfp} />
+              <strong>
+                {element.metadata.team_name ||
+                  `Team ${element.display_name || "Unknown"}`}
+              </strong>
+            </div>
+          </Table.Td>
+          <Table.Td>{element.display_name}</Table.Td>
+          <Table.Td>
+            {element.record.wins}-{element.record.ties}-{element.record.losses}
+          </Table.Td>
+          <Table.Td>
+            {element.record.fpts}.{element.record.fpts_decimal}
+          </Table.Td>
+          <Table.Td>
+            {element.record.fpts_against}.{element.record.fpts_against_decimal}
+          </Table.Td>
+          <Table.Td>{element.streak.streak}</Table.Td>
+          <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
       </Table.Tr>
     ));
   };
