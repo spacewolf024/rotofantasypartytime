@@ -17,6 +17,10 @@ body {
     margin: 0 auto;
 }
 
+h1 {
+  padding: 20px;
+}
+
 @media screen and (min-width: 1150px) {
   .container {
       display: grid;

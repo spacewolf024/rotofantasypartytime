@@ -89,8 +89,7 @@ const MainContent = () => {
             <br/>
             @{element.display_name}
             <br />
-            {element.record.wins}-{element.record.ties}-{element.record.losses}
-          
+            {element.record.wins}-{element.record.ties}-{element.record.losses} 
         </Table.Td>
         <Table.Td>
           {element.record.fpts}.{element.record.fpts_decimal}
