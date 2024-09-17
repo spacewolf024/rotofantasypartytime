@@ -1,7 +1,17 @@
 .tableContainer {
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 1fr;
+}
 
+[class*="tableId"] {
+  display: none;
+}
+
+@media screen and (min-width: 1151px) {
+  .tableContainer {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+  }
 }
 
 td {
@@ -11,6 +21,25 @@ td {
       padding-left: 10px;
     }
   }
+}
+
+.teamContainer {
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.relegated {
+  box-shadow: 2px 0px 0px 0px rgb(236, 31, 31);
+}
+
+.promoted {
+  border-right: 2px solid rgba(18, 215, 18, .8) !important;
 }
 
 [class*="tableId"] {

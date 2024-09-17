@@ -16,10 +16,10 @@ const AppProvider = ({children}) => {
     const value = { state, dispatch };
 
     return (
-        <AppContext.Provider value={value}>
-            <Title>The Commissioner's Fantasy Circuit</Title>
-            {children}
-        </AppContext.Provider>
+      <AppContext.Provider value={value}>
+        <Title>The Commissioner&apos;s Fantasy Circuit</Title>
+        {children}
+      </AppContext.Provider>
     );
 };
 

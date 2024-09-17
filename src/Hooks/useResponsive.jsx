@@ -1,4 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { 
+    useState, 
+    useEffect, 
+    useCallback 
+} from 'react';
 import useDebounce from './useDebounce';
 
 const useResponsive = (debounceDelay = 300) => {

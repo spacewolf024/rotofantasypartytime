@@ -29,6 +29,11 @@
   flex: 1;
 }
 
+.mobileMenuBtn {
+  width: 300px !important;
+  margin: 24px auto;
+}
+
 .header {
   padding-bottom: var(--mantine-spacing-md);
   margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
@@ -100,8 +105,6 @@
   width: 25px;
   height: 25px;
 }
-
-
 
 [data-mantine-color-scheme="dark"] {
   .navButton {

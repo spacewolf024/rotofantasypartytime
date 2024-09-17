@@ -3,13 +3,13 @@ import {
   MantineProvider, 
 
 } from '@mantine/core';
-import { AppProvider } from './AppContext';
-import useResponsive from './useResponsive';
-import useAppContext from './useAppContext';
+import { AppProvider } from './Utilities/AppContext';
+import useResponsive from './Hooks/useResponsive';
+import useAppContext from './Hooks/useAppContext';
 import MainContent from './MainContent';
 import NavBar from './NavBar';
-import Constants from './Constants';
-import './styles/App.css';
+import Constants from './Utilities/Constants';
+import './Styles/App.css';
 import '@mantine/core/styles.css';
 
 const Layout = () => {

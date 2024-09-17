@@ -16,8 +16,8 @@ import {
   IconBrightnessFilled,
   IconCrownOff,
 } from "@tabler/icons-react";
-import classes from './styles/navbar.module.css';
-import useAppContext from './useAppContext';
+import classes from './Styles/navbar.module.css';
+import useAppContext from './Hooks/useAppContext';
 
 const data = [
   { id: 3, label: "All", icon: IconChartBar },
@@ -70,7 +70,6 @@ const NavBar = () => {
       </div>
 
       <Group
-        className={classes.header}
         justify="space-between"
       >
         <ActionIcon
@@ -94,69 +93,65 @@ const NavBar = () => {
 
     </nav>;
 
-  const mobileMenu = 
-  <Menu
-    transitionProps={{ transition: 'pop', duration: 350 }} 
-    shadow="md"
-    width={275}
-
-  >
-    <Menu.Target>
-      <Button
-        styles={{
-        root: { backgroundColor: 'var(--mantine-color-violet-filled)' },
-        label: { color: '#fff' },
-      }} 
-      >Menu</Button>
-    </Menu.Target>
-    <Menu.Divider />
-    <Menu.Dropdown>
-      <Menu.Label>League of Leagues</Menu.Label>
-        {
-          data.map((item) => (
-            <Menu.Item
-              key={item.label}
-              data-active={item.label === active || undefined}
-              leftSection={<item.icon className={classes.linkIcon} stroke={1.5} />}
-              onClick={(event) => {
-                event.preventDefault();
-                setActive(item.label);
-                dispatch({ type: 'set_league', payload: item.id });
-              }}
-            >
-              {item.label}
-            </Menu.Item>
-          ))
-        }
+  const mobileMenu = (
+    <Menu
+      transitionProps={{ transition: "pop", duration: 350 }}
+      shadow="md"
+      width={275}
+    >
+      <Menu.Target>
+        <Button
+          styles={{
+            root: { backgroundColor: "var(--mantine-color-violet-filled)" },
+            label: { color: "#fff" },
+          }}
+          className={classes.mobileMenuBtn}
+        >
+          Menu
+        </Button>
+      </Menu.Target>
+      <Menu.Divider />
+      <Menu.Dropdown>
+        <Menu.Label>League of Leagues</Menu.Label>
+        {data.map((item) => (
+          <Menu.Item
+            key={item.label}
+            data-active={item.label === active || undefined}
+            leftSection={
+              <item.icon className={classes.linkIcon} stroke={1.5} />
+            }
+            onClick={(event) => {
+              event.preventDefault();
+              setActive(item.label);
+              dispatch({ type: "set_league", payload: item.id });
+            }}
+          >
+            {item.label}
+          </Menu.Item>
+        ))}
 
         <Menu.Divider />
 
-        <Menu.Item
-          className={classes.header}
-          justify="space-between"
-        >
+        <Menu.Item className={classes.header} justify="space-between">
           <Group>
             <ActionIcon
               color="white"
               radius="sm"
               justify="center"
-              onClick={
-                () => handleOnClick()
-              }
+              onClick={() => handleOnClick()}
             >
-              <ThemeIcon
-                variant="default"
-                radius="sm"
-                size="md"
-              >
-                <IconBrightnessFilled style={{ width: '100%', height: '100%' }} />
+              <ThemeIcon variant="default" radius="sm" size="md">
+                <IconBrightnessFilled
+                  style={{ width: "100%", height: "100%" }}
+                />
               </ThemeIcon>
-            </ActionIcon >
+            </ActionIcon>
             <Code fw={700}>v0.0.1</Code>
           </Group>
         </Menu.Item>
-    </Menu.Dropdown>
-  </Menu>
+      </Menu.Dropdown>
+    </Menu>
+  );
   ;
 
   return (

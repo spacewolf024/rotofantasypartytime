@@ -3,6 +3,10 @@
   text-align: center;
   list-style: none;
   padding: 0;
+  @media screen and (max-width: 768px) {
+     font-size: 12px;
+  }
+ 
 };
 
 body {

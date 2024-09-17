@@ -7,16 +7,19 @@ import {
   Flex,
   Table,
   Group,
+  Button,
+  Popover,
 } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
-import useAppContext from "./useAppContext";
-import Constants from "./Constants";
-import { getLeagueData, getAllLeaguesData } from "./sleeperService";
-import classes from "./styles/tableStyle.module.scss";
+import useAppContext from "./Hooks/useAppContext";
+import Constants from "./Utilities/Constants";
+import { getLeagueData, getAllLeaguesData } from "./Utilities/sleeperService";
+import classes from "./Styles/tableStyle.module.scss";
 
 const MainContent = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
+  const [opened, setOpened] = useState(false);
   const {
     state: { leagueIndex, isMobile },
   } = useAppContext();
@@ -42,6 +45,16 @@ const MainContent = () => {
     fetchData();
   }, [leagueIndex]);
 
+  const relegatedOrPromoted = (league, index) => {
+    let className = "";
+    if (index + 1 > league.data.length - 3) {
+      className = "relegated";
+    } else if (index <= 2) {
+      className = "promoted";
+    }
+    return className;
+  };
+
   const leagueNames ={
         '1113479147663273984': 'Premier Cup',
         '1113479200771629056': 'Championship',
@@ -49,47 +62,26 @@ const MainContent = () => {
     };
 
   const renderRows = (league) => {
-    return league.data.map((element, index) => (
-      <Table.Tr key={element.user_id} className={`${classes['row' + element.owner_id]}`}>
-          <Table.Td>{index + 1}</Table.Td>
-          <Table.Td>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Avatar className={classes.avatar} src={element.pfp} />
-              <strong>
-                {element.metadata.team_name ||
-                  `Team ${element.display_name || "Unknown"}`}
-              </strong>
-            </div>
-          </Table.Td>
-          <Table.Td>@{element.display_name}</Table.Td>
-          <Table.Td>
-            {element.record.wins}-{element.record.ties}-{element.record.losses}
-          </Table.Td>
-          <Table.Td>
-            {element.record.fpts}.{element.record.fpts_decimal}
-          </Table.Td>
-          <Table.Td>
-            {element.record.fpts_against}.{element.record.fpts_against_decimal}
-          </Table.Td>
-          <Table.Td>{element.streak.streak}</Table.Td>
-          <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
-      </Table.Tr>
-    ));
-  };
 
-  const renderMobileRows = (league) => {
     return league.data.map((element, index) => (
-      <Table.Tr key={element.user_id}>
-        <Table.Td><Group>{index + 1}<Avatar className={classes.avatar} src={element.pfp} /></Group></Table.Td>
+      <Table.Tr
+        key={element.user_id}
+        className={`${classes[relegatedOrPromoted(league, index)]} 
+        ${classes["row" + element.owner_id]}`}
+      >
+        <Table.Td>{index + 1}</Table.Td>
         <Table.Td>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Avatar className={classes.avatar} src={element.pfp} />
             <strong>
               {element.metadata.team_name ||
                 `Team ${element.display_name || "Unknown"}`}
             </strong>
-            <br/>
-            @{element.display_name}
-            <br />
-            {element.record.wins}-{element.record.ties}-{element.record.losses} 
+          </div>
+        </Table.Td>
+        <Table.Td>@{element.display_name}</Table.Td>
+        <Table.Td>
+          {element.record.wins}-{element.record.ties}-{element.record.losses}
         </Table.Td>
         <Table.Td>
           {element.record.fpts}.{element.record.fpts_decimal}
@@ -97,6 +89,41 @@ const MainContent = () => {
         <Table.Td>
           {element.record.fpts_against}.{element.record.fpts_against_decimal}
         </Table.Td>
+        <Table.Td>{element.streak.streak}</Table.Td>
+        <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
+      </Table.Tr>
+    ));
+  };
+
+  const renderMobileRows = (league) => {
+    return league.data.map((element, index) => (
+      <Table.Tr key={element.user_id}>
+        <Table.Td>
+          <Popover position="bottom" withArrow shadow="md">
+            <Popover.Target>
+              <div className={classes.teamContainer}>
+                <Avatar className={classes.avatar} src={element.pfp} />
+                {element.metadata.team_name ||
+                  `${element.display_name}`}
+              </div>
+            </Popover.Target>
+            <Popover.Dropdown>
+              {element.metadata.team_name ||
+                `Team ${element.display_name || "Unknown"}`}
+              <br />@{element.display_name}
+            </Popover.Dropdown>
+          </Popover>
+        </Table.Td>
+        <Table.Td>
+          {element.record.wins}-{element.record.ties}-{element.record.losses}
+        </Table.Td>
+        <Table.Td>
+          {element.record.fpts}.{element.record.fpts_decimal}
+        </Table.Td>
+        <Table.Td>
+          {element.record.fpts_against}.{element.record.fpts_against_decimal}
+        </Table.Td>
+        <Table.Td>{element.streak.streak}</Table.Td>
         <Table.Td>{100 - element.record.waiver_budget_used || 0}</Table.Td>
       </Table.Tr>
     ));
@@ -104,12 +131,17 @@ const MainContent = () => {
 
   const renderTable = (isMobile, league, index) => {
     return (
-      <div className={`${classes.tableContainer} ${classes["tableContainer" + leagueIndex]}`}>
-        <div className={`${classes.tableId} ${classes["tableId" + index]}`}>
-          {leagueNames[league.leagueId]}
-        </div>
+      <div
+        className={`${classes.tableContainer} ${
+          classes["tableContainer" + leagueIndex]
+        }`}
+      >
+        {!isMobile && (
+          <div className={`${classes.tableId} ${classes["tableId" + index]}`}>
+            {leagueNames[league.leagueId]}
+          </div>
+        )}
         <Table
-          className="table-left-align"
           stickyHeader
           stickyHeaderOffset={0}
           withTableBorder
@@ -120,10 +152,11 @@ const MainContent = () => {
             <Table.Tr>
               {isMobile ? (
                 <>
-                  <Table.Th>Rank</Table.Th>
                   <Table.Th>Team</Table.Th>
+                  <Table.Th>Record</Table.Th>
                   <Table.Th>PF</Table.Th>
                   <Table.Th>PA</Table.Th>
+                  <Table.Th>Streak</Table.Th>
                   <Table.Th>Budget</Table.Th>
                 </>
               ) : (
