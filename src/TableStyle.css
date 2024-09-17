@@ -1,8 +1,0 @@
-/* TableStyles.css */
-.table-left-align td,
-.table-left-align th {
-  text-align: left;
-  strong {
-    margin-left: 10px;
-  }
-}

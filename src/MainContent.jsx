@@ -82,9 +82,10 @@ const MainContent = () => {
       <Table.Tr key={element.user_id}>
         <Table.Td>
           <Group>
-            {index + 1}.
-            <Avatar src={element.pfp} />
-            <br />
+            {index + 1}.<strong>
+                {element.metadata.team_name ||
+                  `Team ${element.display_name || "Unknown"}`}
+              </strong>
           </Group>
           {element.display_name}
           <br />
@@ -120,7 +121,7 @@ const MainContent = () => {
             <Table.Tr>
               {isMobile ? (
                 <>
-                  <Table.Th>Rank</Table.Th>
+                  <Table.Th>Team</Table.Th>
                   <Table.Th>PF</Table.Th>
                   <Table.Th>PA</Table.Th>
                   <Table.Th>Streak</Table.Th>
