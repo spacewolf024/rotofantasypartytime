@@ -97,14 +97,17 @@ const MainContent = () => {
 
   const renderMobileRows = (league) => {
     return league.data.map((element, index) => (
-      <Table.Tr key={element.user_id}>
+      <Table.Tr
+        key={element.user_id}
+        className={`${classes[relegatedOrPromoted(league, index)]} 
+        ${classes["row" + element.owner_id]}`}
+      >
         <Table.Td>
           <Popover position="bottom" withArrow shadow="md">
             <Popover.Target>
               <div className={classes.teamContainer}>
                 <Avatar className={classes.avatar} src={element.pfp} />
-                {element.metadata.team_name ||
-                  `${element.display_name}`}
+                {element.metadata.team_name || `${element.display_name}`}
               </div>
             </Popover.Target>
             <Popover.Dropdown>
