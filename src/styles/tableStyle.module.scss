@@ -4,8 +4,13 @@
 
 }
 
-.tableContainer3  {
-
+td {
+  text-align: left;
+  @media screen and (min-width: 1150px) {
+    strong {
+      padding-left: 10px;
+    }
+  }
 }
 
 [class*="tableId"] {
